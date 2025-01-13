@@ -1,0 +1,59 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply common styles to all boxes */
+#one, #two, #three, #four {
+    width: 25%;
+    position: fixed;
+    border: 5px solid;
+    margin: 5px;
+    padding: 5px;
+}
+
+/* Customize box colors */
+#three {
+    border-color: orange;
+    top: 10px;
+    left: 0;
+}
+
+#two {
+    border-color: green;
+    top: 10px;
+    right: 0;
+}
+
+#four {
+    border-color: yellow;
+    bottom: 0;
+    left: 0;
+}
+
+#one {
+    border-color: blue;
+    bottom: 0;
+    right: 0;
+}
+
+/* Additional styling for the link */
+/* Center the link at the top */
+#link {
+	margin: 5px;
+    	padding: 5px;
+	
+    	position: absolute;
+    	top: 0;
+    	left: 50%;
+    	transform: translateX(-50%);
+	
+	font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
+	font-size: 1.64rem;
+	background-color: #0a4b33;
+}
+#link a {
+    color: #EEEEEE;
+    text-decoration: none;
+}
