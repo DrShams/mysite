@@ -15,7 +15,11 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from ads.utils import dump_queries
 
 from django.db.models import Q
+from django.contrib.auth import logout
+from django.shortcuts import render
+import logging
 
+logger = logging.getLogger(__name__)
 class AdListView(OwnerListView):
     model = Ad
     template_name = 'ads/ad_list.html'
@@ -166,3 +170,8 @@ class DeleteFavoriteView(LoginRequiredMixin, View):
             pass
 
         return HttpResponse()
+    
+def custom_logout(request):
+    logout(request)  # Logs out the user
+    logger.info("User has logged out")  # Logs to the console
+    return render(request, "registration/logout.html")  # Render the logout confirmation page

@@ -4,7 +4,6 @@ from django.urls import include, path, re_path
 from django.views.static import serve
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import LogoutView
 
 # Up two folders to serve "site" content
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,8 +17,7 @@ urlpatterns = [
     path('autos/', include('autos.urls')),
     path('cats/', include('cats.urls')),
     path('ads/', include('ads.urls')),
-    path("change-password/", auth_views.PasswordChangeView.as_view()), 
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),                                                                               
+    path("change-password/", auth_views.PasswordChangeView.as_view()),                                                                    
     re_path(r'^site/(?P<path>.*)$', serve,
         {'document_root': SITE_ROOT, 'show_indexes': True},
         name='site_path'
