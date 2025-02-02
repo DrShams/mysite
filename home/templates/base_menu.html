@@ -19,7 +19,13 @@
             <img style="width: 25px;" src="{{ user|gravatar:60 }}"/><b class="caret"></b>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="rightnavDropdown">
-            <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'ads:all' %}">Logout</a></li>
+          <li>
+            <form id="logout-form" method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{% url 'ads:all' %}">
+              <button type="submit" class="dropdown-item">Logout</button>
+            </form>
+          </li>          
         </ul>
        </li>
        {% else %}
