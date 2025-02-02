@@ -16,6 +16,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('autos/', include('autos.urls')),
     path('cats/', include('cats.urls')),
+    path('ads/', include('ads.urls')),
     path("change-password/", auth_views.PasswordChangeView.as_view()),                                                                                 
     re_path(r'^site/(?P<path>.*)$', serve,
         {'document_root': SITE_ROOT, 'show_indexes': True},
