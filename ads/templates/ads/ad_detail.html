@@ -28,7 +28,9 @@
 {% endif %}
 </span>
 <h1>{{ ad.title }}</h1>
-{% if ad.content_type %}
+{% if ad.image %}
+<!-- Display image if associated with the ad -->
+<img style="float:right; max-width:50%;" src="{{ ad.image.url }}" alt="{{ ad.title }}">
 {% endif %}
 <p>
 {{ ad.text }}
@@ -46,8 +48,8 @@ Price: {{ ad.price }}
 <form method="post" action="{% url 'ads:ad_comment_create' ad.id %}">
     {% csrf_token %}
     {{ comment_form|crispy }}
-<input type="submit" value="Submit">
-<input type="submit" value="All Ads" onclick="window.location.href='{% url 'ads:all' %}';return false;">
+    <input type="submit" value="Submit">
+    <input type="submit" value="All Ads" onclick="window.location.href='{% url 'ads:all' %}';return false;">
 </form>
 </p>
 {% endif %}

@@ -175,3 +175,21 @@ def custom_logout(request):
     logout(request)  # Logs out the user
     logger.info("User has logged out")  # Logs to the console
     return render(request, "registration/logout.html")  # Render the logout confirmation page
+
+def stream_file(request, pk):
+    ad = get_object_or_404(Ad, id=pk)
+    
+    # Check if the ad has a picture associated with it
+    if not ad.picture:
+        return HttpResponse("No picture available.", status=404)
+
+    response = HttpResponse()
+    
+    # Set the Content-Type from the ad's content_type
+    response['Content-Type'] = ad.content_type if ad.content_type else 'application/octet-stream'
+    response['Content-Length'] = len(ad.picture)
+    
+    # Write the picture data to the response
+    response.write(ad.picture)
+    
+    return response

@@ -1,0 +1,6 @@
+django-extensions
+django-crispy-forms
+crispy-bootstrap5
+djangorestframework
+social-auth-app-django
+django-taggit

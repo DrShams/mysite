@@ -14,11 +14,15 @@ class Ad(models.Model) :
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
      # Picture
-    picture = models.BinaryField(null=True, editable=True)
-    content_type = models.CharField(max_length=256, null=True, help_text='The MIMEType of the file')
+    picture = models.BinaryField(null=True, blank=True, editable=True)
+    content_type = models.CharField(max_length=256, null=True, blank=True, 
+                                    help_text='The MIMEType of the file')
     comments = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Comment', related_name='comments_owned')
     favorites = models.ManyToManyField(settings.AUTH_USER_MODEL,
         through='Fav', related_name='favorite_ads')
+
+    def __str__(self):
+        return self.title
 
     # Shows up in the admin list
     def __str__(self):
@@ -50,3 +54,14 @@ class Comment(models.Model) :
     def __str__(self):
         if len(self.text) < 15 : return self.text
         return self.text[:11] + ' ...'
+
+class Pic(models.Model):
+
+    # Picture
+    picture = models.BinaryField(null=True, blank=True, editable=True)
+    content_type = models.CharField(max_length=256, null=True, blank=True, 
+                                    help_text='The MIMEType of the file')
+
+    # Shows up in the admin list
+    def __str__(self):
+        return self.title
