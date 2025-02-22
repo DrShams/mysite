@@ -35,10 +35,6 @@
 <!-- Ad Information -->
 <span style="float: right;">
 ({{ ad.updated_at|naturaltime }})
-{% if ad.owner == user %}
-<a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil"></i></a>
-<a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash"></i></a>
-{% endif %}
 </span>
 
 <h1>{{ ad.title }}</h1>
@@ -70,7 +66,6 @@
 <h2>Comments:</h2>
 {% for comment in comments %}
 <div class="comment-box">
-    <span class="comment-owner">{{ comment.owner.username }}</span> 
     <span>({{ comment.updated_at|naturaltime }})</span>
     <p>{{ comment.text }}</p>
 

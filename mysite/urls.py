@@ -5,6 +5,8 @@ from django.views.static import serve
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
 from mysite.views import custom_logout_view  # Import the custom logout view
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Up two folders to serve "site" content
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,3 +28,6 @@ urlpatterns = [
     ),
     path('', TemplateView.as_view(template_name='home/main.html')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
