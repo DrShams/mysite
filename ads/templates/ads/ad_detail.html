@@ -65,12 +65,6 @@
 <div class="comment-box">
     <span>({{ comment.updated_at|naturaltime }})</span>
     <p>{{ comment.text }}</p>
-
-    {% if user == comment.owner %}
-    <a href="{% url 'ads:ad_comment_delete' comment.id %}">
-        <i class="fa fa-trash" style="color: red;"></i>
-    </a>
-    {% endif %}
 </div>
 {% empty %}
 <p>No comments yet.</p>
