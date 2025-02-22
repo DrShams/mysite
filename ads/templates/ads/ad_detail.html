@@ -12,14 +12,27 @@
   display: none;
   background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
+.comment-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+.comment-owner {
+  font-weight: bold;
+}
 </style>
 {% endblock %}
+
 {% block content %}
 {% if ad.content_type %}
 <div id="overlay" class="overlay" style="text-align: center;"
    onclick="document.getElementById('overlay').style.display = 'none';" >
 </div>
 {% endif %}
+
+<!-- Ad Information -->
 <span style="float: right;">
 ({{ ad.updated_at|naturaltime }})
 {% if ad.owner == user %}
@@ -27,20 +40,19 @@
 <a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash"></i></a>
 {% endif %}
 </span>
+
 <h1>{{ ad.title }}</h1>
+
 {% if ad.image %}
 <!-- Display image if associated with the ad -->
 <img style="float:right; max-width:50%;" src="{{ ad.image.url }}" alt="{{ ad.title }}">
 {% endif %}
-<p>
-{{ ad.text }}
-</p>
-<p>
-Price: {{ ad.price }}
-</p>
-<p>
-<a href="{% url 'ads:all' %}">All ads</a>
-</p>
+
+<p>{{ ad.text }}</p>
+<p>Price: {{ ad.price }}</p>
+<p><a href="{% url 'ads:all' %}">All ads</a></p>
+
+<!-- Comment Form -->
 {% if user.is_authenticated %}
 <br clear="all"/>
 <p>
@@ -53,12 +65,22 @@ Price: {{ ad.price }}
 </form>
 </p>
 {% endif %}
+
+<!-- Display Comments -->
+<h2>Comments:</h2>
 {% for comment in comments %}
-<p> {{ comment.text }}
-({{ comment.updated_at|naturaltime }})
-{% if user == comment.owner %}
-<a href="{% url 'ads:ad_comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
-{% endif %}
-</p>
+<div class="comment-box">
+    <span class="comment-owner">{{ comment.owner.username }}</span> 
+    <span>({{ comment.updated_at|naturaltime }})</span>
+    <p>{{ comment.text }}</p>
+
+    {% if user == comment.owner %}
+    <a href="{% url 'ads:ad_comment_delete' comment.id %}">
+        <i class="fa fa-trash" style="color: red;"></i>
+    </a>
+    {% endif %}
+</div>
+{% empty %}
+<p>No comments yet.</p>
 {% endfor %}
 {% endblock %}
