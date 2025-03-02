@@ -13,16 +13,13 @@ class CreateForm(forms.ModelForm):
 
     class Meta:
         model = Ad
-        fields = ['title', 'text', 'price', 'tags']
+        fields = ['title', 'text', 'price', 'picture', 'tags']
 
-    # Validate the size of the picture
-    #def clean(self):
-    #    cleaned_data = super().clean()
-    #    pic = cleaned_data.get('picture')
-    #    if pic is None:
-    #        return
-    #    if len(pic) > self.max_upload_limit:
-    #        self.add_error('picture', "File must be < "+self.max_upload_limit_text+" bytes")
+    def clean_picture(self):
+        pic = self.cleaned_data.get('picture')
+        if pic and pic.size > self.max_upload_limit:
+            raise forms.ValidationError(f"File size must be < {self.max_upload_limit / (1024 * 1024)} MB")
+        return pic
 
     # Convert uploaded File object to a picture
     def save(self, commit=True):

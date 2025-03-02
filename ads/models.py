@@ -15,7 +15,7 @@ class Ad(models.Model) :
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
      # Picture
-    #picture = models.BinaryField(null=True, blank=True, editable=True)
+    picture = models.ImageField(upload_to='ad_images/', null=True, blank=True)
     content_type = models.CharField(max_length=256, null=True, blank=True, 
                                     help_text='The MIMEType of the file')
     comments = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Comment', related_name='comments_owned')
