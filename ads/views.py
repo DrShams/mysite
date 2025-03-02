@@ -41,6 +41,7 @@ class AdListView(OwnerListView):
             # Multi-field search
             query = Q(title__contains=strval)
             query.add(Q(text__contains=strval), Q.OR)
+            query.add(Q(tags__name__in=[strval]), Q.OR)  # Search by tag
             ad_list = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
         else :
             # try both versions with > 4 ads and watch the queries that happen
@@ -92,6 +93,7 @@ class AdCreateView(LoginRequiredMixin, View):
         ad = form.save(commit=False)
         ad.owner = self.request.user
         ad.save()
+        form.save_m2m()  # Save tags
         return redirect(self.success_url)
 
 
@@ -115,7 +117,7 @@ class AdUpdateView(LoginRequiredMixin, View):
 
         ad = form.save(commit=False)
         ad.save()
-
+        form.save_m2m()  # Save tags
         return redirect(self.success_url)
 
 

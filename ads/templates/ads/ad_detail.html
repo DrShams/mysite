@@ -43,6 +43,13 @@
 
 <p>{{ ad.text }}</p>
 <p>Price: {{ ad.price }}</p>
+
+<p>Tags: 
+  {% for tag in ad.tags.all %}
+    <a href="{% url 'ads:all' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+</p>
+
 <p><a href="{% url 'ads:all' %}">All ads</a></p>
 
 <!-- Comment Form -->
